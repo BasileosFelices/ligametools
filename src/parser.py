@@ -4,6 +4,9 @@ from typing import TypedDict
 
 from bs4 import BeautifulSoup
 
+from src.config import Config
+from src.dirs import HTML_OUTPUT_DIR
+
 time_regex = re.compile(r"^\d+:\d+$")
 
 
@@ -54,14 +57,22 @@ def parse_leaderboard(html_text: str) -> list[GameTimeEntry]:
     return results
 
 
-def parse_main():
-    HTML_OUT_FOLDER = "leaderboards_out"
+def process_leaderboard(
+    parsed_leaderboards: list[GameTimeEntry], config: Config
+) -> list[GameTimeEntry]:
+    for entry in parsed_leaderboards:
+        if entry["name"] == "Vy":
+            entry["name"] = config["your_name"]
+    return parsed_leaderboards
 
-    files = os.listdir(HTML_OUT_FOLDER)
 
-    for file in files:
-        filepath = f"{HTML_OUT_FOLDER}/{file}"
+def parse_main(config: Config):
+    files = os.listdir(HTML_OUTPUT_DIR)
+
+    for filename in files:
+        filepath = os.path.join(HTML_OUTPUT_DIR, filename)
+        game_name, _ = os.path.splitext(filename)
         with open(filepath, "r", encoding="utf8") as f:
             html_text = f.read()
-            print(file)
-            print(parse_leaderboard(html_text))
+            print(game_name)
+            print(process_leaderboard(parse_leaderboard(html_text), config))

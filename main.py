@@ -36,7 +36,7 @@ def main():
         case "scrape":
             scraper_main(config)
         case "parse":
-            parse_main()
+            parse_main(config)
         case _:
             print(metadata.metadata("ligametools"))
             print("Unknown subcommand")

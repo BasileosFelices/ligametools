@@ -4,7 +4,7 @@ from playwright.sync_api import Page, sync_playwright
 from playwright.sync_api import TimeoutError as PWTimeoutError
 
 from src.config import Config
-from src.dirs import ligametools_user_dirs
+from src.dirs import HTML_OUTPUT_DIR
 
 # --- Selectors / constants ---
 BASE_LEADERBOARD_URL_TEMPLATE = (
@@ -18,9 +18,6 @@ LOGIN_HINT_SELECTORS = [
     'input[name="username"]',
     'form[action*="login"]',
 ]
-HTML_OUTPUT_DIR = os.path.join(
-    ligametools_user_dirs.user_cache_dir, "last_game_scraped/"
-)
 
 
 def _detect_need_login(page) -> bool:
