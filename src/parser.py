@@ -1,7 +1,8 @@
-from bs4 import BeautifulSoup
-from typing import TypedDict
 import os
 import re
+from typing import TypedDict
+
+from bs4 import BeautifulSoup
 
 time_regex = re.compile(r"^\d+:\d+$")
 
@@ -37,7 +38,7 @@ def parse_leaderboard(html_text: str) -> list[GameTimeEntry]:
                 break  # Stop once we've found the time
 
         # 3. Check for "bezchybny vykon"
-        subtitle_tag = player.find(
+        subtitle_tag = entry.find(
             "div", class_="pr-connections-leaderboard-player__subtitle"
         )
         # Check if the tag exists and if its lowercase text contains "bezchybn"

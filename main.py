@@ -1,7 +1,10 @@
-from src.scraper import scraper_main
-from src.parser import parse_main
-from argparse import ArgumentParser
 import sys
+from argparse import ArgumentParser
+from importlib import metadata
+
+from src.config import load_config
+from src.parser import parse_main
+from src.scraper import scraper_main
 
 
 def create_arg_parser() -> ArgumentParser:
@@ -27,12 +30,15 @@ def main():
     parser = create_arg_parser()
     args = parser.parse_args()
 
+    config = load_config()
+
     match args.commands:
         case "scrape":
-            scraper_main()
+            scraper_main(config)
         case "parse":
             parse_main()
         case _:
+            print(metadata.metadata("ligametools"))
             print("Unknown subcommand")
             parser.print_help(sys.stderr)
 
