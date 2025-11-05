@@ -1,0 +1,12 @@
+[project]
+name = "ligametools"
+version = "0.1.0"
+description = "LinkedIn games helper tools"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "bs4>=0.0.2",
+    "pandas>=2.3.3",
+    "platformdirs>=4.5.0",
+    "playwright>=1.55.0",
+]
